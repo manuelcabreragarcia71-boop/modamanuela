@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moda Manuela | Boutique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Paleta de Colores Boutique */
+            --bg-body: #fdfbfb;
+            --primary: #5c4033; /* Marrón Chocolate */
+            --accent: #d4a5a5;  /* Rosa Palo */
+            --gold: #c5a059;    /* Toque dorado sutil */
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(92, 64, 51, 0.05);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--primary);
+            margin: 0;
+            padding-bottom: 100px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER BOUTIQUE --- */
+        header {
+            background: var(--white);
+            text-align: center;
+            padding: 25px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(92,64,51,0.05);
+        }
+
+        /* Recreación del Logo con CSS */
+        .brand-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .brand-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: block;
+            margin-bottom: -15px; /* Superponer ligeramente */
+            opacity: 0.9;
+        }
+
+        .brand-name {
+            font-family: 'Great Vibes', cursive; /* Fuente estilo firma */
+            font-size: 3rem;
+            margin: 0;
+            line-height: 1.2;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px rgba(234, 205, 198, 0.3);
+        }
+
+        .brand-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8a6e60;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* --- FILTROS ESTILO PILL --- */
+        .filters-container {
+            padding: 20px;
+            background: var(--bg-body);
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+        .filters::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #ebd4d4;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.2);
+        }
+
+        /* --- PARRILLA DE PRODUCTOS --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 30px;
+                padding: 0 30px;
+            }
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover { transform: translateY(-5px); }
+
+        .img-container {
+            position: relative;
+            height: 250px; /* Fotos más altas y elegantes */
+            overflow: hidden;
+            background: #f4f4f4;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-cat {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #333;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .btn-buy {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        .btn-buy:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* --- BOTONES FLOTANTES --- */
+        .floating-socials {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            text-decoration: none;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-btn:hover { transform: scale(1.1); }
+        .wa-btn { background: #25D366; }
+        .ig-btn { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+
+        /* --- ADMIN MODAL (Mejorado) --- */
+        .admin-trigger {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.7rem;
+            color: #ccc;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        #admin-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95); /* Fondo blanco casi opaco elegante */
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-box {
+            background: white;
+            padding: 40px;
+            width: 85%;
+            max-width: 400px;
+            border: 1px solid #eee;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+            outline: none;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-container">
+            <i class="fas fa-coat-hanger brand-icon" style="transform: rotate(-5deg);"></i> <i class="fas fa-hanger brand-icon"></i>
+            <h1 class="brand-name">Moda Manuela</h1>
+        </div>
+        <div class="brand-subtitle">Sanlúcar de Barrameda</div>
+    </header>
+
+    <div class="filters-container">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">Todo</button>
+            <button class="filter-btn" onclick="filterProducts('Abrigos')">Abrigos</button>
+            <button class="filter-btn" onclick="filterProducts('Vestidos')">Vestidos</button>
+            <button class="filter-btn" onclick="filterProducts('Conjuntos')">Conjuntos</button>
+            <button class="filter-btn" onclick="filterProducts('Curvy')">Curvy</button>
+            <button class="filter-btn" onclick="filterProducts('Ofertas')">Ofertas</button>
+        </div>
+    </div>
+
+    <div class="product-grid" id="grid">
+        </div>
+
+    <div class="floating-socials">
+        <a href="https://www.instagram.com/moda_manuela/" target="_blank" class="social-btn ig-btn">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/34600594214" target="_blank" class="social-btn wa-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <div class="admin-trigger" onclick="openAdmin()">
+        ADMINISTRACIÓN
+    </div>
+
+    <div id="admin-modal">
+        <div class="admin-box" id="login-view">
+            <h3>Área Privada</h3>
+            <p style="font-size:0.8rem; color:#999; margin-bottom:20px;">Introduce tu clave de acceso</p>
+            <input type="password" id="pass-input" class="admin-input" placeholder="••••">
+            <button class="admin-btn" onclick="login()">Entrar</button>
+            <button onclick="closeAdmin()" style="background:none; border:none; color:#999; margin-top:15px; cursor:pointer">Cancelar</button>
+        </div>
+
+        <div class="admin-box" id="upload-view" style="display:none;">
+            <h3>Nuevo Artículo</h3>
+            <input type="text" id="p-name" class="admin-input" placeholder="Nombre del artículo">
+            <input type="number" id="p-price" class="admin-input" placeholder="Precio (€)">
+            <select id="p-cat" class="admin-input">
+                <option value="Abrigos">Abrigos</option>
+                <option value="Vestidos">Vestidos</option>
+                <option value="Conjuntos">Conjuntos</option>
+                <option value="Curvy">Curvy</option>
+            </select>
+            <input type="text" id="p-img" class="admin-input" placeholder="URL Imagen (Opcional)">
+            <button class="admin-btn" onclick="saveProduct()">Publicar</button>
+            <button onclick="logout()" style="background:none; border:none; color:var(--primary); margin-top:15px; cursor:pointer; text-decoration:underline">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATOS Y LÓGICA ---
+        
+        // Imagen por defecto elegante
+        const defaultImg = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600";
+        
+        // Cargar productos o usar iniciales
+        let products = JSON.parse(localStorage.getItem('modaManuela_db')) || [
+            { id: 1, name: "Abrigo Pelo Camel", category: "Abrigos", price: 35, img: defaultImg },
+            { id: 2, name: "Vestido Gala Negro", category: "Vestidos", price: 28, img: defaultImg },
+            { id: 3, name: "Conjunto Sport Chic", category: "Conjuntos", price: 40, img: defaultImg },
+            { id: 4, name: "Vestido Floral Curvy", category: "Curvy", price: 30, img: defaultImg }
+        ];
+
+        const grid = document.getElementById('grid');
+        const phone = "34600594214";
+
+        function render(filter = 'all') {
+            grid.innerHTML = '';
+            const list = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            list.forEach(p => {
+                const text = `Hola! Estoy viendo *${p.name}* en la web. ¿Lo tenéis disponible?`;
+                const link = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+                
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-container">
+                            <img src="${p.img}" class="product-img">
+                        </div>
+                        <div class="product-details">
+                            <div class="product-cat">${p.category}</div>
+                            <h3 class="product-title">${p.name}</h3>
+                            <div class="product-price">${p.price}€</div>
+                            <a href="${link}" class="btn-buy" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Consultar
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            render(cat);
+        }
+
+        // --- ADMIN ---
+        const modal = document.getElementById('admin-modal');
+        const loginView = document.getElementById('login-view');
+        const uploadView = document.getElementById('upload-view');
+
+        function openAdmin() { modal.style.display = 'flex'; }
+        function closeAdmin() { modal.style.display = 'none'; }
+
+        function login() {
+            if(document.getElementById('pass-input').value === '1234') {
+                loginView.style.display = 'none';
+                uploadView.style.display = 'block';
+            } else {
+                alert('Clave incorrecta');
+            }
+        }
+
+        function saveProduct() {
+            const name = document.getElementById('p-name').value;
+            const price = document.getElementById('p-price').value;
+            const cat = document.getElementById('p-cat').value;
+            const img = document.getElementById('p-img').value || defaultImg;
+
+            if(name && price) {
+                products.unshift({ id: Date.now(), name, category: cat, price, img });
+                localStorage.setItem('modaManuela_db', JSON.stringify(products));
+                alert('Prenda añadida con éxito');
+                render();
+                closeAdmin();
+                // Reset inputs
+                document.getElementById('p-name').value = '';
+                document.getElementById('p-price').value = '';
+            }
+        }
+
+        function logout() {
+            uploadView.style.display = 'none';
+            loginView.style.display = 'block';
+            document.getElementById('pass-input').value = '';
+            closeAdmin();
+        }
+
+        // Iniciar app
+        render();
+
+    </script>
+</body>
+</html>
